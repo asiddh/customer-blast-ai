@@ -8,138 +8,120 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 250 100% 99%;
-    --foreground: 215 28% 17%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 215 28% 17%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 28% 17%;
-
-    --primary: 262 83% 58%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 262 95% 68%;
-
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 215 28% 17%;
-
-    --muted: 220 14% 96%;
-    --muted-foreground: 215 16% 47%;
-
-    --accent: 262 83% 58%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --success: 142 76% 36%;
-    --success-foreground: 355 100% 97%;
-
-    --warning: 38 92% 50%;
-    --warning-foreground: 48 96% 89%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 58%;
-
-    --radius: 0.75rem;
+    /* Twilio Console Authentic Colors - Based on actual console */
+    --twilio-navy: 18 25 38;         /* Dark sidebar navy */
+    --twilio-red: 242 47 70;         /* Twilio brand red */
+    --twilio-blue: 0 20 137;         /* Twilio brand blue */
+    --twilio-light-blue: 96 165 250; /* Light blue accents */
+    --twilio-gray-50: 248 250 252;   /* Very light gray */
+    --twilio-gray-100: 241 245 249;  /* Light gray backgrounds */
+    --twilio-gray-200: 226 232 240;  /* Border gray */
+    --twilio-gray-600: 75 85 99;     /* Medium gray text */
+    --twilio-gray-800: 31 41 55;     /* Dark gray text */
+    --twilio-gray-900: 15 23 42;     /* Very dark text */
+    
+    /* Light theme - Twilio Console Style */
+    --background: 255 255 255;                    /* Clean white background */
+    --foreground: var(--twilio-gray-900);         /* Dark text */
+    --card: 255 255 255;                          /* White cards */
+    --card-foreground: var(--twilio-gray-900);    /* Dark card text */
+    --popover: 255 255 255;
+    --popover-foreground: var(--twilio-gray-900);
+    --primary: var(--twilio-red);                 /* Twilio red primary */
+    --primary-foreground: 255 255 255;
+    --primary-glow: 252 165 165;                  /* Light red glow */
+    --secondary: var(--twilio-gray-50);           /* Very light gray */
+    --secondary-foreground: var(--twilio-gray-800);
+    --muted: var(--twilio-gray-100);              /* Light gray muted */
+    --muted-foreground: var(--twilio-gray-600);   /* Medium gray text */
+    --accent: var(--twilio-gray-50);
+    --accent-foreground: var(--twilio-gray-800);
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --success: 34 197 94;
+    --success-foreground: 255 255 255;
+    --warning: 245 158 11;
+    --warning-foreground: 255 255 255;
+    --border: var(--twilio-gray-200);             /* Light border */
+    --input: var(--twilio-gray-200);              /* Input borders */
+    --ring: var(--twilio-red);                    /* Focus ring */
+    --radius: 6px;                                /* Twilio's border radius */
 
     /* Campaign builder specific colors */
     --brand-purple: 262 83% 58%;
-    --brand-blue: 221 83% 53%;
+    --brand-blue: var(--twilio-blue);
     --brand-green: 142 76% 36%;
     --brand-orange: 25 95% 53%;
     
     /* Channel colors */
-    --sms-color: 142 76% 36%;
-    --email-color: 221 83% 53%;
-    --whatsapp-color: 142 69% 33%;
+    --sms-color: var(--twilio-light-blue);        /* Blue for SMS */
+    --email-color: var(--twilio-blue);            /* Dark blue for email */
+    --whatsapp-color: 37 211 102;                 /* WhatsApp green */
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(221 83% 53%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(120 76% 36%));
-    --gradient-hero: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(221 83% 53%) 50%, hsl(142 76% 36%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(var(--twilio-red)), hsl(var(--primary-glow)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(152 100% 85%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--twilio-blue)), hsl(var(--twilio-light-blue)));
     
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(262 83% 58% / 0.3);
-    --shadow-card: 0 4px 20px -4px hsl(215 28% 17% / 0.08);
-    --shadow-glow: 0 0 40px hsl(262 95% 68% / 0.4);
+    /* Shadows - Subtle like Twilio Console */
+    --shadow-elegant: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-glow: 0 0 0 1px hsl(var(--twilio-red) / 0.1);
     
     /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.2s ease-in-out;
+    --transition-bounce: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar colors - Exact Twilio Console navy sidebar */
+    --sidebar-background: var(--twilio-navy);     /* Dark navy sidebar */
+    --sidebar-foreground: 203 213 225;           /* Light sidebar text */
+    --sidebar-primary: var(--twilio-red);        /* Red accents */
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 30 41 59;                  /* Slightly lighter navy */
+    --sidebar-accent-foreground: 203 213 225;
+    --sidebar-border: 30 41 59;                  /* Subtle border */
+    --sidebar-ring: var(--twilio-red);
   }
 
   .dark {
-    --background: 215 28% 12%;
-    --foreground: 210 40% 98%;
-
-    --card: 215 28% 15%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 215 28% 15%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 262 83% 58%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 262 95% 68%;
-
-    --secondary: 215 20% 20%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 215 20% 20%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 262 83% 58%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --success: 142 76% 36%;
-    --success-foreground: 355 100% 97%;
-
-    --warning: 38 92% 50%;
-    --warning-foreground: 48 96% 89%;
-
-    --border: 215 20% 25%;
-    --input: 215 20% 25%;
-    --ring: 262 83% 58%;
+    /* Dark theme maintains Twilio's authentic feel */
+    --background: var(--twilio-navy);
+    --foreground: 248 250 252;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+    --primary: var(--twilio-red);
+    --primary-foreground: 255 255 255;
+    --secondary: 30 41 59;
+    --secondary-foreground: 203 213 225;
+    --muted: 30 41 59;
+    --muted-foreground: 156 163 175;
+    --accent: 30 41 59;
+    --accent-foreground: 203 213 225;
+    --destructive: 220 38 38;
+    --destructive-foreground: 248 250 252;
+    --border: 30 41 59;
+    --input: 30 41 59;
+    --ring: var(--twilio-red);
 
     /* Dark mode gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(221 83% 53%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(120 76% 36%));
-    --gradient-hero: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(221 83% 53%) 50%, hsl(142 76% 36%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(var(--twilio-red)), hsl(var(--primary-glow)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(152 100% 85%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--twilio-blue)), hsl(var(--twilio-light-blue)));
     
     /* Dark shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(262 83% 58% / 0.5);
+    --shadow-elegant: 0 1px 2px 0 hsl(0 0% 0% / 0.1);
     --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
-    --shadow-glow: 0 0 40px hsl(262 95% 68% / 0.6);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --shadow-glow: 0 0 0 1px hsl(var(--twilio-red) / 0.2);
+    --sidebar-background: var(--twilio-navy);
+    --sidebar-foreground: 203 213 225;
+    --sidebar-primary: var(--twilio-red);
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 30 41 59;
+    --sidebar-accent-foreground: 203 213 225;
+    --sidebar-border: 30 41 59;
+    --sidebar-ring: var(--twilio-red);
   }
 }
 

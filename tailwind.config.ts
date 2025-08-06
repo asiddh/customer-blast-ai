@@ -61,11 +61,17 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				brand: {
-					purple: 'hsl(var(--brand-purple))',
-					blue: 'hsl(var(--brand-blue))',
-					green: 'hsl(var(--brand-green))',
-					orange: 'hsl(var(--brand-orange))'
+				twilio: {
+					navy: 'hsl(var(--twilio-navy))',
+					red: 'hsl(var(--twilio-red))',
+					blue: 'hsl(var(--twilio-blue))',
+					'light-blue': 'hsl(var(--twilio-light-blue))',
+					'gray-50': 'hsl(var(--twilio-gray-50))',
+					'gray-100': 'hsl(var(--twilio-gray-100))',
+					'gray-200': 'hsl(var(--twilio-gray-200))',
+					'gray-600': 'hsl(var(--twilio-gray-600))',
+					'gray-800': 'hsl(var(--twilio-gray-800))',
+					'gray-900': 'hsl(var(--twilio-gray-900))'
 				},
 				channel: {
 					sms: 'hsl(var(--sms-color))',
