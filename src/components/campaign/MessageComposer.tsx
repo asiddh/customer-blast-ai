@@ -14,7 +14,8 @@ import {
   MessageSquare, 
   Plus,
   X,
-  Eye
+  Eye,
+  Send
 } from "lucide-react";
 
 interface MessageComposerProps {
@@ -72,59 +73,179 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
     const limits = getChannelLimits(channel);
     const isOverLimit = message.text.length > limits.text;
     
-    return (
-      <div className="space-y-4">
-        <div className={`p-4 rounded-lg border-2 ${
-          channel === "sms" ? "border-channel-sms bg-channel-sms/5" :
-          channel === "email" ? "border-channel-email bg-channel-email/5" :
-          "border-channel-whatsapp bg-channel-whatsapp/5"
-        }`}>
-          <div className="flex items-center gap-2 mb-3">
-            {getChannelIcon(channel)}
-            <span className="font-medium capitalize">{channel} Preview</span>
-          </div>
-          
-          {channel === "email" && subject && (
-            <div className="mb-3 p-2 bg-background rounded border">
-              <span className="text-sm font-medium">Subject: {subject}</span>
+    if (channel === "email") {
+      return (
+        <div className="space-y-4">
+          {/* Browser Window Mockup for Email */}
+          <div className="bg-background border-2 border-muted rounded-lg shadow-lg overflow-hidden max-w-2xl mx-auto">
+            {/* Browser Header */}
+            <div className="bg-muted/50 px-4 py-2 border-b">
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="flex-1 mx-4">
+                  <div className="bg-background rounded px-3 py-1 text-xs text-muted-foreground">
+                    inbox.gmail.com
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
-          
-          <div className="space-y-3">
-            {message.text && (
-              <div className={`p-3 rounded ${
-                channel === "sms" ? "bg-white border" :
-                channel === "email" ? "bg-background" :
-                "bg-channel-whatsapp text-white"
-              }`}>
-                <p className="text-sm whitespace-pre-wrap">{message.text}</p>
-              </div>
-            )}
             
-            {message.images.length > 0 && channel !== "sms" && (
-              <div className="grid grid-cols-2 gap-2">
-                {message.images.slice(0, limits.images).map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`Preview ${index + 1}`}
-                    className="w-full h-20 object-cover rounded"
-                  />
-                ))}
+            {/* Email Interface */}
+            <div className="bg-background">
+              {/* Email Header */}
+              <div className="border-b bg-muted/20 px-4 py-3">
+                <div className="flex items-center gap-3 mb-2">
+                  <Mail className="h-5 w-5 text-channel-email" />
+                  <span className="font-medium">New Campaign Email</span>
+                </div>
+                {subject && (
+                  <div className="text-lg font-semibold">{subject}</div>
+                )}
+                <div className="text-sm text-muted-foreground">
+                  From: your-business@company.com
+                </div>
               </div>
-            )}
+              
+              {/* Email Content */}
+              <div className="p-4 space-y-4">
+                {message.text && (
+                  <div className="prose prose-sm max-w-none">
+                    <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.text}</p>
+                  </div>
+                )}
+                
+                {message.images.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {message.images.slice(0, limits.images).map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`Email image ${index + 1}`}
+                        className="w-full rounded border"
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
           
-          <div className="mt-3 text-xs text-muted-foreground">
+          <div className="text-center text-xs text-muted-foreground">
             <span className={isOverLimit ? "text-destructive" : ""}>
               {message.text.length}/{limits.text} characters
             </span>
-            {channel !== "sms" && (
-              <span className="ml-4">
-                {message.images.length}/{limits.images} images
-              </span>
-            )}
+            <span className="ml-4">
+              {message.images.length}/{limits.images} images
+            </span>
           </div>
+        </div>
+      );
+    }
+    
+    // Mobile Phone Mockup for SMS and WhatsApp
+    return (
+      <div className="space-y-4">
+        <div className="bg-background border-2 border-muted rounded-3xl shadow-2xl overflow-hidden max-w-sm mx-auto" style={{aspectRatio: '9/19.5'}}>
+          {/* Phone Header */}
+          <div className="bg-background px-4 py-2 border-b">
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-muted-foreground">9:41</div>
+              <div className="flex items-center gap-1">
+                <div className="w-4 h-2 bg-muted rounded-sm"></div>
+                <div className="w-1 h-2 bg-muted rounded-sm"></div>
+                <div className="w-6 h-3 border border-muted rounded-sm">
+                  <div className="w-4 h-full bg-green-500 rounded-sm"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* App Header */}
+          <div className={`px-4 py-3 ${
+            channel === "whatsapp" ? "bg-[#075E54] text-white" : "bg-muted"
+          } border-b`}>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-muted-foreground/20 flex items-center justify-center">
+                {getChannelIcon(channel)}
+              </div>
+              <div>
+                <div className="font-medium text-sm">
+                  {channel === "whatsapp" ? "Customer" : "Contact"}
+                </div>
+                <div className="text-xs opacity-70">
+                  {channel === "whatsapp" ? "online" : "Mobile"}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Messages Area */}
+          <div className={`flex-1 p-4 ${
+            channel === "whatsapp" ? "bg-[#ECE5DD]" : "bg-background"
+          } min-h-[300px] flex flex-col justify-end`}>
+            <div className="space-y-2">
+              {message.text && (
+                <div className={`ml-auto max-w-[80%] p-3 rounded-lg ${
+                  channel === "whatsapp" 
+                    ? "bg-[#DCF8C6] text-black" 
+                    : "bg-blue-500 text-white"
+                }`}>
+                  <p className="text-sm whitespace-pre-wrap">{message.text}</p>
+                  <div className="text-xs opacity-70 mt-1 text-right">
+                    {channel === "whatsapp" ? "✓✓" : "Delivered"} 9:41
+                  </div>
+                </div>
+              )}
+              
+              {message.images.length > 0 && channel === "whatsapp" && (
+                <div className="ml-auto max-w-[80%] space-y-1">
+                  {message.images.slice(0, limits.images).map((image, index) => (
+                    <div key={index} className="bg-[#DCF8C6] p-1 rounded-lg">
+                      <img
+                        src={image}
+                        alt={`WhatsApp image ${index + 1}`}
+                        className="w-full rounded"
+                      />
+                      <div className="text-xs opacity-70 mt-1 text-right px-2 pb-1">
+                        ✓✓ 9:41
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {/* Input Area */}
+          <div className={`px-4 py-2 border-t ${
+            channel === "whatsapp" ? "bg-background" : "bg-muted/50"
+          }`}>
+            <div className="flex items-center gap-2">
+              <div className="flex-1 bg-muted rounded-full px-3 py-1 text-xs text-muted-foreground">
+                {channel === "whatsapp" ? "Type a message..." : "iMessage"}
+              </div>
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                channel === "whatsapp" ? "bg-[#075E54]" : "bg-blue-500"
+              }`}>
+                <Send className="h-3 w-3 text-white" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="text-center text-xs text-muted-foreground">
+          <span className={isOverLimit ? "text-destructive" : ""}>
+            {message.text.length}/{limits.text} characters
+          </span>
+          {channel !== "sms" && (
+            <span className="ml-4">
+              {message.images.length}/{limits.images} images
+            </span>
+          )}
         </div>
       </div>
     );
