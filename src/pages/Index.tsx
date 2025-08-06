@@ -1,13 +1,27 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Theme } from "@twilio-paste/core/theme";
+import { CampaignBuilder } from "@/components/campaign/CampaignBuilder";
+import { Header } from "@/components/layout/Header";
+import { Sidebar } from "@/components/layout/Sidebar";
 
 const Index = () => {
+  const [activeCampaign, setActiveCampaign] = useState<string | null>(null);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <Theme.Provider theme="default">
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="flex">
+          <Sidebar 
+            activeCampaign={activeCampaign}
+            onCampaignSelect={setActiveCampaign}
+          />
+          <main className="flex-1 p-6">
+            <CampaignBuilder />
+          </main>
+        </div>
       </div>
-    </div>
+    </Theme.Provider>
   );
 };
 
