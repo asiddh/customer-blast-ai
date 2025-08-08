@@ -27,7 +27,7 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					glow: 'hsl(var(--primary-glow))'
+					hover: 'hsl(var(--primary-hover))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -61,16 +61,12 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				brand: {
-					purple: 'hsl(var(--brand-purple))',
-					blue: 'hsl(var(--brand-blue))',
-					green: 'hsl(var(--brand-green))',
-					orange: 'hsl(var(--brand-orange))'
-				},
-				channel: {
-					sms: 'hsl(var(--sms-color))',
-					email: 'hsl(var(--email-color))',
-					whatsapp: 'hsl(var(--whatsapp-color))'
+				console: {
+					navy: 'hsl(var(--console-navy))',
+					'navy-light': 'hsl(var(--console-navy-light))',
+					red: 'hsl(var(--console-red))',
+					gray: 'hsl(var(--console-gray))',
+					'gray-light': 'hsl(var(--console-gray-light))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -90,13 +86,16 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-success': 'var(--gradient-success)',
+				'gradient-navy': 'var(--gradient-navy)',
 				'gradient-hero': 'var(--gradient-hero)'
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
 				'card': 'var(--shadow-card)',
-				'glow': 'var(--shadow-glow)'
+				'navy': 'var(--shadow-navy)'
+			},
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif']
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)',
