@@ -18,9 +18,6 @@ export default {
 			}
 		},
 		extend: {
-			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif'],
-			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -30,13 +27,11 @@ export default {
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
-					hover: 'hsl(var(--primary-hover))',
-					light: 'hsl(var(--primary-light))'
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))',
-					hover: 'hsl(var(--secondary-hover))'
+					foreground: 'hsl(var(--secondary-foreground))'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -44,13 +39,11 @@ export default {
 				},
 				success: {
 					DEFAULT: 'hsl(var(--success))',
-					foreground: 'hsl(var(--success-foreground))',
-					light: 'hsl(var(--success-light))'
+					foreground: 'hsl(var(--success-foreground))'
 				},
 				warning: {
 					DEFAULT: 'hsl(var(--warning))',
-					foreground: 'hsl(var(--warning-foreground))',
-					light: 'hsl(var(--warning-light))'
+					foreground: 'hsl(var(--warning-foreground))'
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
@@ -58,8 +51,7 @@ export default {
 				},
 				accent: {
 					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))',
-					light: 'hsl(var(--accent-light))'
+					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
@@ -70,26 +62,21 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				twilio: {
-					red: 'hsl(var(--twilio-red))',
-					'red-light': 'hsl(var(--twilio-red-light))',
-					'red-dark': 'hsl(var(--twilio-red-dark))',
 					navy: 'hsl(var(--twilio-navy))',
-					'navy-light': 'hsl(var(--twilio-navy-light))',
-					'navy-lighter': 'hsl(var(--twilio-navy-lighter))',
+					red: 'hsl(var(--twilio-red))',
 					blue: 'hsl(var(--twilio-blue))',
-					'blue-light': 'hsl(var(--twilio-blue-light))',
-					'blue-dark': 'hsl(var(--twilio-blue-dark))',
-					gray: 'hsl(var(--twilio-gray))',
+					'light-blue': 'hsl(var(--twilio-light-blue))',
 					'gray-50': 'hsl(var(--twilio-gray-50))',
 					'gray-100': 'hsl(var(--twilio-gray-100))',
 					'gray-200': 'hsl(var(--twilio-gray-200))',
-					'gray-300': 'hsl(var(--twilio-gray-300))',
-					'gray-400': 'hsl(var(--twilio-gray-400))',
-					'gray-500': 'hsl(var(--twilio-gray-500))',
 					'gray-600': 'hsl(var(--twilio-gray-600))',
-					'gray-700': 'hsl(var(--twilio-gray-700))',
 					'gray-800': 'hsl(var(--twilio-gray-800))',
 					'gray-900': 'hsl(var(--twilio-gray-900))'
+				},
+				channel: {
+					sms: 'hsl(var(--sms-color))',
+					email: 'hsl(var(--email-color))',
+					whatsapp: 'hsl(var(--whatsapp-color))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -109,16 +96,13 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-navy': 'var(--gradient-navy)',
-				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-card': 'var(--gradient-card)'
+				'gradient-success': 'var(--gradient-success)',
+				'gradient-hero': 'var(--gradient-hero)'
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
 				'card': 'var(--shadow-card)',
-				'card-hover': 'var(--shadow-card-hover)',
-				'glow': 'var(--shadow-glow)',
-				'nav': 'var(--shadow-nav)'
+				'glow': 'var(--shadow-glow)'
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)',
