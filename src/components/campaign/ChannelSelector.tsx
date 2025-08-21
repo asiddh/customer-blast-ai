@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Smartphone, Mail, MessageSquare, Check } from "lucide-react";
+import { Smartphone, Mail, MessageSquare, MessageCircle, Check } from "lucide-react";
 
 interface ChannelSelectorProps {
   selectedChannels: string[];
@@ -35,6 +35,15 @@ const channels = [
     color: "channel-whatsapp",
     features: ["Rich media", "Two-way messaging", "High engagement"],
     limitations: ["Template approval required", "Business account needed"]
+  },
+  {
+    id: "rcs",
+    name: "RCS",
+    description: "Rich Communication Services with interactive features",
+    icon: MessageCircle,
+    color: "channel-rcs",
+    features: ["Rich media", "Interactive buttons", "Delivery receipts", "Branding"],
+    limitations: ["Carrier support required", "Android-focused", "Fallback to SMS needed"]
   }
 ];
 

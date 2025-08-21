@@ -77,6 +77,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				channel: {
+					sms: 'hsl(var(--channel-sms))',
+					email: 'hsl(var(--channel-email))',
+					whatsapp: 'hsl(var(--channel-whatsapp))',
+					rcs: 'hsl(var(--channel-rcs))'
 				}
 			},
 			borderRadius: {

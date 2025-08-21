@@ -36,7 +36,9 @@ export const AiMessageGenerator = ({ onClose, onGenerate, channels }: AiMessageG
   const [generatedContent, setGeneratedContent] = useState<{
     text: string;
     images: string[];
+    channelVersions?: Record<string, string>;
   } | null>(null);
+  const [selectedEditChannel, setSelectedEditChannel] = useState<string>("");
 
   const campaignTypes = [
     "Product Launch",
@@ -93,9 +95,24 @@ ${businessName || "The Team"}`;
         "https://via.placeholder.com/400x300?text=Generated+Image+2"
       ] : [];
 
+      // Generate channel-specific versions
+      const channelVersions: Record<string, string> = {};
+      channels.forEach(channel => {
+        if (channel === "sms") {
+          channelVersions[channel] = `${businessName || "Our company"}: ${prompt.substring(0, 100)}... Text STOP to opt out.`;
+        } else if (channel === "email") {
+          channelVersions[channel] = `Subject: ${campaignType || "Important Update"}\n\n${mockGeneratedText}\n\nBest regards,\n${businessName || "The Team"}`;
+        } else if (channel === "rcs") {
+          channelVersions[channel] = `🎉 ${mockGeneratedText}\n\n[Tap for more info] [Visit website]`;
+        } else {
+          channelVersions[channel] = mockGeneratedText;
+        }
+      });
+
       setGeneratedContent({
         text: mockGeneratedText,
-        images: mockImages
+        images: mockImages,
+        channelVersions
       });
       
       toast.success("Content generated successfully!");
@@ -108,14 +125,35 @@ ${businessName || "The Team"}`;
 
   const useGenerated = () => {
     if (generatedContent) {
-      onGenerate(generatedContent);
+      const finalText = selectedEditChannel && generatedContent.channelVersions?.[selectedEditChannel] 
+        ? generatedContent.channelVersions[selectedEditChannel] 
+        : generatedContent.text;
+      onGenerate({
+        text: finalText,
+        images: generatedContent.images
+      });
     }
   };
 
   const copyToClipboard = () => {
     if (generatedContent) {
-      navigator.clipboard.writeText(generatedContent.text);
+      const textToCopy = selectedEditChannel && generatedContent.channelVersions?.[selectedEditChannel] 
+        ? generatedContent.channelVersions[selectedEditChannel] 
+        : generatedContent.text;
+      navigator.clipboard.writeText(textToCopy);
       toast.success("Copied to clipboard!");
+    }
+  };
+
+  const updateChannelVersion = (channel: string, newText: string) => {
+    if (generatedContent) {
+      setGeneratedContent({
+        ...generatedContent,
+        channelVersions: {
+          ...generatedContent.channelVersions,
+          [channel]: newText
+        }
+      });
     }
   };
 
@@ -262,10 +300,32 @@ ${businessName || "The Team"}`;
                   </div>
                 ) : (
                   <div className="space-y-4">
+                    {/* Channel Selection for Editing */}
+                    {channels.length > 1 && (
+                      <div className="space-y-2">
+                        <Label>Edit for Specific Channel</Label>
+                        <Select value={selectedEditChannel} onValueChange={setSelectedEditChannel}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select channel to customize" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="">General Version</SelectItem>
+                            {channels.map(channel => (
+                              <SelectItem key={channel} value={channel}>
+                                {channel.toUpperCase()} Version
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    )}
+
                     {/* Generated Text */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <Label>Generated Message</Label>
+                        <Label>
+                          {selectedEditChannel ? `${selectedEditChannel.toUpperCase()} Message` : "Generated Message"}
+                        </Label>
                         <Button
                           variant="ghost"
                           size="sm"
@@ -274,11 +334,24 @@ ${businessName || "The Team"}`;
                           <Copy className="h-4 w-4" />
                         </Button>
                       </div>
-                      <div className="bg-muted/50 p-4 rounded-lg border max-h-40 overflow-y-auto">
-                        <p className="whitespace-pre-wrap text-sm">{generatedContent.text}</p>
-                      </div>
+                      
+                      {selectedEditChannel ? (
+                        <Textarea
+                          value={generatedContent.channelVersions?.[selectedEditChannel] || generatedContent.text}
+                          onChange={(e) => updateChannelVersion(selectedEditChannel, e.target.value)}
+                          className="min-h-32 text-sm"
+                          placeholder={`Customize message for ${selectedEditChannel}...`}
+                        />
+                      ) : (
+                        <div className="bg-muted/50 p-4 rounded-lg border max-h-40 overflow-y-auto">
+                          <p className="whitespace-pre-wrap text-sm">{generatedContent.text}</p>
+                        </div>
+                      )}
+                      
                       <p className="text-xs text-muted-foreground mt-1">
-                        {generatedContent.text.length} characters
+                        {(selectedEditChannel && generatedContent.channelVersions?.[selectedEditChannel] 
+                          ? generatedContent.channelVersions[selectedEditChannel] 
+                          : generatedContent.text).length} characters
                       </p>
                     </div>
 

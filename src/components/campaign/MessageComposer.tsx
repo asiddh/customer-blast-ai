@@ -12,10 +12,13 @@ import {
   Smartphone, 
   Mail, 
   MessageSquare, 
+  MessageCircle,
   Plus,
   X,
   Eye,
-  Send
+  Send,
+  User,
+  Building
 } from "lucide-react";
 
 interface MessageComposerProps {
@@ -56,6 +59,7 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
       case "sms": return <Smartphone className="h-4 w-4" />;
       case "email": return <Mail className="h-4 w-4" />;
       case "whatsapp": return <MessageSquare className="h-4 w-4" />;
+      case "rcs": return <MessageCircle className="h-4 w-4" />;
       default: return null;
     }
   };
@@ -65,6 +69,7 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
       case "sms": return { text: 160, images: 0 };
       case "email": return { text: 10000, images: 10 };
       case "whatsapp": return { text: 4096, images: 10 };
+      case "rcs": return { text: 2048, images: 10 };
       default: return { text: 1000, images: 5 };
     }
   };
@@ -146,7 +151,7 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
       );
     }
     
-    // Mobile Phone Mockup for SMS and WhatsApp
+    // Mobile Phone Mockup for SMS, WhatsApp, and RCS
     return (
       <div className="space-y-4">
         <div className="bg-background border-2 border-muted rounded-3xl shadow-2xl overflow-hidden max-w-sm mx-auto" style={{aspectRatio: '9/19.5'}}>
@@ -166,7 +171,8 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
           
           {/* App Header */}
           <div className={`px-4 py-3 ${
-            channel === "whatsapp" ? "bg-[#075E54] text-white" : "bg-muted"
+            channel === "whatsapp" ? "bg-[#075E54] text-white" : 
+            channel === "rcs" ? "bg-[#4285F4] text-white" : "bg-muted"
           } border-b`}>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-muted-foreground/20 flex items-center justify-center">
@@ -174,10 +180,12 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
               </div>
               <div>
                 <div className="font-medium text-sm">
-                  {channel === "whatsapp" ? "Customer" : "Contact"}
+                  {channel === "whatsapp" ? "Customer" : 
+                   channel === "rcs" ? "Customer" : "Contact"}
                 </div>
                 <div className="text-xs opacity-70">
-                  {channel === "whatsapp" ? "online" : "Mobile"}
+                  {channel === "whatsapp" ? "online" : 
+                   channel === "rcs" ? "RCS enabled" : "Mobile"}
                 </div>
               </div>
             </div>
@@ -185,33 +193,39 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
           
           {/* Messages Area */}
           <div className={`flex-1 p-4 ${
-            channel === "whatsapp" ? "bg-[#ECE5DD]" : "bg-background"
+            channel === "whatsapp" ? "bg-[#ECE5DD]" : 
+            channel === "rcs" ? "bg-gradient-to-b from-blue-50 to-white" : "bg-background"
           } min-h-[300px] flex flex-col justify-end`}>
             <div className="space-y-2">
               {message.text && (
                 <div className={`ml-auto max-w-[80%] p-3 rounded-lg ${
                   channel === "whatsapp" 
                     ? "bg-[#DCF8C6] text-black" 
+                    : channel === "rcs"
+                    ? "bg-[#4285F4] text-white shadow-lg"
                     : "bg-blue-500 text-white"
                 }`}>
                   <p className="text-sm whitespace-pre-wrap">{message.text}</p>
                   <div className="text-xs opacity-70 mt-1 text-right">
-                    {channel === "whatsapp" ? "✓✓" : "Delivered"} 9:41
+                    {channel === "whatsapp" ? "✓✓" : 
+                     channel === "rcs" ? "✓ Read" : "Delivered"} 9:41
                   </div>
                 </div>
               )}
               
-              {message.images.length > 0 && channel === "whatsapp" && (
+              {message.images.length > 0 && (channel === "whatsapp" || channel === "rcs") && (
                 <div className="ml-auto max-w-[80%] space-y-1">
                   {message.images.slice(0, limits.images).map((image, index) => (
-                    <div key={index} className="bg-[#DCF8C6] p-1 rounded-lg">
+                    <div key={index} className={`p-1 rounded-lg ${
+                      channel === "whatsapp" ? "bg-[#DCF8C6]" : "bg-[#4285F4]/10 border border-[#4285F4]/30"
+                    }`}>
                       <img
                         src={image}
-                        alt={`WhatsApp image ${index + 1}`}
+                        alt={`${channel} image ${index + 1}`}
                         className="w-full rounded"
                       />
                       <div className="text-xs opacity-70 mt-1 text-right px-2 pb-1">
-                        ✓✓ 9:41
+                        {channel === "whatsapp" ? "✓✓" : "✓ Read"} 9:41
                       </div>
                     </div>
                   ))}
@@ -222,14 +236,17 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
           
           {/* Input Area */}
           <div className={`px-4 py-2 border-t ${
-            channel === "whatsapp" ? "bg-background" : "bg-muted/50"
+            channel === "whatsapp" ? "bg-background" : 
+            channel === "rcs" ? "bg-background" : "bg-muted/50"
           }`}>
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-muted rounded-full px-3 py-1 text-xs text-muted-foreground">
-                {channel === "whatsapp" ? "Type a message..." : "iMessage"}
+                {channel === "whatsapp" ? "Type a message..." : 
+                 channel === "rcs" ? "RCS message..." : "iMessage"}
               </div>
               <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                channel === "whatsapp" ? "bg-[#075E54]" : "bg-blue-500"
+                channel === "whatsapp" ? "bg-[#075E54]" : 
+                channel === "rcs" ? "bg-[#4285F4]" : "bg-blue-500"
               }`}>
                 <Send className="h-3 w-3 text-white" />
               </div>
@@ -290,10 +307,32 @@ export const MessageComposer = ({ message, onMessageChange, channels }: MessageC
 
               {/* Message Text */}
               <div className="space-y-2">
-                <Label htmlFor="message">Message Content</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="message">Message Content</Label>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => updateText(message.text + "{FirstName}")}
+                      className="text-xs px-2 py-1 h-auto"
+                    >
+                      <User className="h-3 w-3 mr-1" />
+                      +FirstName
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => updateText(message.text + "{BrandName}")}
+                      className="text-xs px-2 py-1 h-auto"
+                    >
+                      <Building className="h-3 w-3 mr-1" />
+                      +BrandName
+                    </Button>
+                  </div>
+                </div>
                 <Textarea
                   id="message"
-                  placeholder="Type your message here..."
+                  placeholder="Type your message here... Use {FirstName}, {BrandName} for personalization"
                   value={message.text}
                   onChange={(e) => updateText(e.target.value)}
                   className="min-h-32 resize-none"
